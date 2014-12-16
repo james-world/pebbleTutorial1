@@ -41,10 +41,8 @@ static void main_window_load(Window *window) {
   // Add it as a child layer to the Window's root layer
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_time_layer));
 
+  // Make sure time is displayed from the start
   update_time();
-  
-  // Register with TickTimerService
-  tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
 }
 
 static void main_window_unload(Window *window) {
@@ -64,6 +62,9 @@ static void init() {
   
   // Show the Window on the watch, with animated=true
   window_stack_push(s_main_window, true);  
+      
+  // Register with TickTimerService
+  tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
 }
 
 static void deinit() {
